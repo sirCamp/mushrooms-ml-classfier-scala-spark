@@ -191,35 +191,7 @@ object Application extends App with Charting {
     chartTotalData = chartTotalData:+ ("Kmeans",chartClusteringKmeansData)
     chartTotalData = chartTotalData:+ ("KmeansBisect",chartClusteringKmeansBisectData)
 
-    /**
-      * Preparing decision tree data for chart alone
-      */
-    /*chartDecisionTree = chartDecisionTree:+ ("Variance",chartVarianceData)
-    chartDecisionTree = chartDecisionTree:+ ("Entropy",chartEntropyData)
-    chartDecisionTree = chartDecisionTree:+ ("Gini",chartGiniData)*/
 
-    /**
-      * Preparing neuralnetwork tree data for chart alone
-      */
-    //chartNeuralNetwork = chartNeuralNetwork:+ ("Multiperceptron",chartNeuralNetworkData)
-
-    /**
-      * Preparing naivebayes tree data for chart alone
-      */
-    //chartNaiveBayes = chartNaiveBayes :+ ("NaiveBayes",chartNaiveBayesData)
-
-    /**
-      * Preparing clustering tree data for chart alone
-      */
-    /*chartClustering = chartClustering:+ ("Kmeans",chartClusteringKmeansData)
-    chartClustering = chartClustering:+ ("KmeansBisect",chartClusteringKmeansBisectData)*/
-
-    /*ChartManager.drawAndSave(configuration.getString("resources.chart.output.default")+"/chart_"+System.currentTimeMillis()+".png",chartTotalData,"Comparing All methods (Accuracy/TrainingPercentage)")
-    ChartManager.drawAndSave(configuration.getString("resources.chart.output.decisiontree")+"/chart_"+System.currentTimeMillis()+".png",chartDecisionTree,"Comparing DecisionTree methods (Accuracy/TrainingPercentage)")
-    ChartManager.drawAndSave(configuration.getString("resources.chart.output.neuralnetwork")+"/chart_"+System.currentTimeMillis()+".png",chartNeuralNetwork,"NeuralNetwork (Accuracy/TrainingPercentage)")
-    ChartManager.drawAndSave(configuration.getString("resources.chart.output.naivebayes")+"/chart_"+System.currentTimeMillis()+".png",chartNaiveBayes,"NaiveBays (Accuracy/TrainingPercentage)")
-    ChartManager.drawAndSave(configuration.getString("resources.chart.output.clustering")+"/chart_"+System.currentTimeMillis()+".png",chartClustering,"Comparing Clustering KMeans methods (Accuracy/TrainingPercentage)")
-*/
 
     ChartManager.drawAndSave("default",chartTotalData)
     ChartManager.drawAndSave("decisiontree",chartTotalData)

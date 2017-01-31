@@ -73,7 +73,7 @@ object ChartManager{
       chartTotalFinalData = chartTotalFinalData:+ chartTotalData.find(p=>p._1.equals("NaiveBayes")).get
 
       pathFile = Application.configuration.getString("resources.chart.output.naivebayes")+"/chart_"+System.currentTimeMillis()+".png"
-      title = "NaiveBays (Accuracy/TrainingPercentage)"
+      title = "NaiveBayes (Accuracy/TrainingPercentage)"
 
     }
     else if(variant.equals("clustering")){
