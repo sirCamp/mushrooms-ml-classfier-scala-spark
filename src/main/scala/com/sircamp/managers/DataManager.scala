@@ -2,6 +2,7 @@ package com.sircamp.managers
 
 import java.io.{BufferedWriter, FileOutputStream, OutputStreamWriter}
 
+import com.sircamp.Application
 import com.sircamp.algorithms.neuralnetwork.NeuralNetworkBuilder
 import org.apache.log4j.Logger
 import org.apache.spark.mllib.linalg.{Vector, Vectors}
@@ -14,7 +15,7 @@ import org.apache.spark.sql.{DataFrame, SparkSession}
   */
 object DataManager {
 
-  final var TEMP_FILE_PATH = "/home/stefano/scala-decisiontree/src/main/resources/tmp/libsvm_temp.txt"
+  final var TEMP_FILE_PATH = Application.configuration.getString("tmp.libsvm")
 
   val logger:Logger = Logger.getLogger(DataManager.getClass)
 

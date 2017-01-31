@@ -113,6 +113,7 @@ object Application extends App with Charting {
 
         }
       }
+      treeThread.start()
 
       val neuralNetworkThread:Thread = new Thread() {
 
@@ -126,7 +127,7 @@ object Application extends App with Charting {
 
         }
       }
-
+      neuralNetworkThread.start()
 
       val naiveBayesThread:Thread = new Thread() {
 
@@ -138,7 +139,7 @@ object Application extends App with Charting {
           chartNaiveBayesData = chartNaiveBayesData:+(step*10,dataNb)
         }
       }
-
+      naiveBayesThread.start()
 
       val clusteringThread:Thread = new Thread() {
 
@@ -151,14 +152,6 @@ object Application extends App with Charting {
           chartClusteringKmeansBisectData = chartClusteringKmeansBisectData:+(step*10,dataC(1))
         }
       }
-
-      /*
-      * TODO: find a best way to run multiple learning at same step
-      *
-      * */
-      treeThread.start()
-      neuralNetworkThread.start()
-      naiveBayesThread.start()
       clusteringThread.start()
 
 
@@ -170,13 +163,16 @@ object Application extends App with Charting {
       clusteringThread.join()
       neuralNetworkThread.join()
 
-
+      step += 1
       logger.info("*** Cleaning tmp data ***")
       LoadManager.clearData()
 
-      step += 1
+
     }
 
+    /**
+      * THIS PART NEEDS ONLY TO CREATE CHART OF ACCURACY BY CARDINALITY OF TRAINING SET
+      */
 
     var chartTotalData:List[(String,Vector[(Int,Double)])] = List()
     var chartDecisionTree:List[(String,Vector[(Int,Double)])] = List()
@@ -198,31 +194,38 @@ object Application extends App with Charting {
     /**
       * Preparing decision tree data for chart alone
       */
-    chartDecisionTree = chartDecisionTree:+ ("Variance",chartVarianceData)
+    /*chartDecisionTree = chartDecisionTree:+ ("Variance",chartVarianceData)
     chartDecisionTree = chartDecisionTree:+ ("Entropy",chartEntropyData)
-    chartDecisionTree = chartDecisionTree:+ ("Gini",chartGiniData)
+    chartDecisionTree = chartDecisionTree:+ ("Gini",chartGiniData)*/
 
     /**
       * Preparing neuralnetwork tree data for chart alone
       */
-    chartNeuralNetwork = chartNeuralNetwork:+ ("Multiperceptron",chartNeuralNetworkData)
+    //chartNeuralNetwork = chartNeuralNetwork:+ ("Multiperceptron",chartNeuralNetworkData)
 
     /**
       * Preparing naivebayes tree data for chart alone
       */
-    chartNaiveBayes = chartNaiveBayes :+ ("NaiveBayes",chartNaiveBayesData)
+    //chartNaiveBayes = chartNaiveBayes :+ ("NaiveBayes",chartNaiveBayesData)
 
     /**
       * Preparing clustering tree data for chart alone
       */
-    chartClustering = chartClustering:+ ("Kmeans",chartClusteringKmeansData)
-    chartClustering = chartClustering:+ ("KmeansBisect",chartClusteringKmeansBisectData)
+    /*chartClustering = chartClustering:+ ("Kmeans",chartClusteringKmeansData)
+    chartClustering = chartClustering:+ ("KmeansBisect",chartClusteringKmeansBisectData)*/
 
-    ChartManager.drawAndSave(configuration.getString("resources.chart.output.default")+"/chart_"+System.currentTimeMillis()+".png",chartTotalData,"Comparing All methods (Accuracy/TrainingPercentage)")
+    /*ChartManager.drawAndSave(configuration.getString("resources.chart.output.default")+"/chart_"+System.currentTimeMillis()+".png",chartTotalData,"Comparing All methods (Accuracy/TrainingPercentage)")
     ChartManager.drawAndSave(configuration.getString("resources.chart.output.decisiontree")+"/chart_"+System.currentTimeMillis()+".png",chartDecisionTree,"Comparing DecisionTree methods (Accuracy/TrainingPercentage)")
     ChartManager.drawAndSave(configuration.getString("resources.chart.output.neuralnetwork")+"/chart_"+System.currentTimeMillis()+".png",chartNeuralNetwork,"NeuralNetwork (Accuracy/TrainingPercentage)")
     ChartManager.drawAndSave(configuration.getString("resources.chart.output.naivebayes")+"/chart_"+System.currentTimeMillis()+".png",chartNaiveBayes,"NaiveBays (Accuracy/TrainingPercentage)")
     ChartManager.drawAndSave(configuration.getString("resources.chart.output.clustering")+"/chart_"+System.currentTimeMillis()+".png",chartClustering,"Comparing Clustering KMeans methods (Accuracy/TrainingPercentage)")
+*/
+
+    ChartManager.drawAndSave("default",chartTotalData)
+    ChartManager.drawAndSave("decisiontree",chartTotalData)
+    ChartManager.drawAndSave("neuralnetwork",chartTotalData)
+    ChartManager.drawAndSave("naivebayes",chartTotalData)
+    ChartManager.drawAndSave("clustering",chartTotalData)
 
 
     logger.info("*** SPARK stopping Context ***")
