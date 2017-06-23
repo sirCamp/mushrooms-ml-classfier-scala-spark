@@ -94,7 +94,7 @@ object Application extends App with Charting {
       logger.info("*** DataFrame training and test loaded ***")
 
       val vectorTraining = DataManager.loadVectorDataModel(rawTraining)
-      val vectorTest = DataManager.loadVectorDataModel(rawTraining)
+      val vectorTest = DataManager.loadVectorDataModel(rawTest)
       logger.info("*** Vector training and test loaded ***")
 
 
@@ -146,7 +146,7 @@ object Application extends App with Charting {
         override def run(): Unit = {
 
           logger.info("*** Clustering (Kmeans + BisectKmeans) RUN ***")
-          val clusteringKmeansRunner = new ClusteringKmeansRunner(vectorTraining, vectorTraining, 2, 20)
+          val clusteringKmeansRunner = new ClusteringKmeansRunner(vectorTraining, vectorTest, 2, 20)
           val dataC = clusteringKmeansRunner.run()
           chartClusteringKmeansData = chartClusteringKmeansData:+(step*10,dataC.head)
           chartClusteringKmeansBisectData = chartClusteringKmeansBisectData:+(step*10,dataC(1))
